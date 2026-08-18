@@ -16,7 +16,32 @@ What you can do:
   line shows where it will land), or **drag it off the drawer to pop it back onto
   the bar**.
 
+## Screenshots
+
+Collapsed — the drawer is just the `•••`, out of the way:
+
+![Collapsed drawer showing only the ellipsis and the system tray icons](docs/collapsed.png)
+
+On hover — the hidden widgets slide out from behind the `•••`:
+
+![Expanded drawer revealing the hidden bar widgets](docs/expanded.png)
+
 ## Install
+
+The quickest way — clone and run the installer:
+
+```bash
+git clone https://github.com/barun-labs/lun.drawer.git
+cd lun.drawer
+./install.sh
+```
+
+`install.sh` copies the plugin files into `~/.config/omarchy/plugins/lun.drawer/`,
+validates them, and restarts the shell. Re-run it any time to update an installed
+copy. Set `OMARCHY_PLUGINS` if your plugins live somewhere other than
+`~/.config/omarchy/plugins`.
+
+### Or by hand
 
 Omarchy loads plugins from `~/.config/omarchy/plugins/<id>/`, and it does **not**
 allow symlinks inside a plugin folder — so install a real copy of the files:
@@ -24,13 +49,10 @@ allow symlinks inside a plugin folder — so install a real copy of the files:
 ```bash
 git clone https://github.com/barun-labs/lun.drawer.git
 mkdir -p ~/.config/omarchy/plugins
-cp -r lun.drawer ~/.config/omarchy/plugins/lun.drawer
-rm -rf ~/.config/omarchy/plugins/lun.drawer/.git   # the plugin folder holds plugin files only
+cp lun.drawer/Drawer.qml lun.drawer/manifest.json lun.drawer/README.md ~/.config/omarchy/plugins/lun.drawer/
 omarchy plugin validate ~/.config/omarchy/plugins/lun.drawer   # prints nothing, exits 0 on success
 omarchy restart shell
 ```
-
-To update later, re-copy the files over the installed copy and `omarchy restart shell`.
 
 ## Configure
 
