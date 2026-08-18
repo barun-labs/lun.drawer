@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "lun.drawer",
+  "name": "Drawer",
+  "version": "1.0.0",
+  "author": "lun",
+  "description": "Collapsible drawer that hides other bar widgets behind a chevron",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Drawer.qml"
+  },
+  "barWidget": {
+    "displayName": "Drawer",
+    "category": "Layout",
+    "allowMultiple": true,
+    "defaultSection": "right",
+    "defaults": {
+      "items": []
+    },
+    "schema": [
+      {
+        "key": "items",
+        "type": "array",
+        "label": "Hidden widgets"
+      }
+    ]
+  }
+}
