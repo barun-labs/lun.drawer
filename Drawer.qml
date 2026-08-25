@@ -338,6 +338,10 @@ Item {
         // hiding the Loader feeds back and latches every widget off. Instead keep the
         // Loader visible and collapse its own extent, clipping the mounted widget.
         readonly property bool showing: item && item.visible
+        // Same reason as the containers above: a hidden widget collapses to 0 extent
+        // but its mounted item keeps full size, so it would still take clicks meant
+        // for whatever the Row shifted into that spot.
+        enabled: showing
         clip: true
         width:  root.vertical ? root.barExtent : (showing ? item.implicitWidth : 0)
         height: root.vertical ? (showing ? item.implicitHeight : 0) : root.barExtent
@@ -438,7 +442,12 @@ Item {
     height: root.barExtent
     anchors.right: chevron.left
     anchors.verticalCenter: parent.verticalCenter
-    visible: !root.vertical
+    // revealProgress 0 must mean "not there": clip is VISUAL only, so a collapsed
+    // drawer still hit-tests. The Row is anchored to the container's right edge and
+    // the container is 0-wide when collapsed, so the widgets sit at negative x,
+    // exactly under the bar icons left of the chevron, which is why clicking one of
+    // those sometimes fired a drawer widget instead. visible:false stops delivery.
+    visible: !root.vertical && root.revealProgress > 0
     clip: true
 
     Row {
@@ -468,7 +477,7 @@ Item {
     height: root.revealExtent
     anchors.bottom: chevron.top
     anchors.horizontalCenter: parent.horizontalCenter
-    visible: root.vertical
+    visible: root.vertical && root.revealProgress > 0   // see drawerHorizontal
     clip: true
 
     Column {
